@@ -1,4 +1,5 @@
 import mongoose,{Schema} from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const listingschema=new Schema(
     {
@@ -31,8 +32,14 @@ const listingschema=new Schema(
             type: Array,
             required:[true,'Image is required']
         },
+        owner:{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
     },
     { timestamps: true}
 )
+
+listingschema.plugin(mongooseAggregatePaginate)
 
 export const Listing=mongoose.model('Listing',listingschema)
